@@ -1,0 +1,127 @@
+#bottom {
+  width: 60vw;
+  height: 50vw;
+  position: fixed;
+  margin-top: 0; left: 22vw;
+  background-image: url("nckuTree.jpg");
+  background-size: 60vw;
+  background-position: center top;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  opacity: 0.5;
+  filter: grayscale(100%);  
+}
+
+#signal {
+  position: fixed;
+  left: 28vw; top: 0.5vw;
+}
+
+#screen {
+  width: 21vw;
+  height: 37vw;
+  position: fixed;
+  left: 27vw; top: 1.25vw;
+  background-color: white;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+#screen1 {
+  width: 21vw;
+  height: 18.5vw;
+  position: absolute;
+  left: 0vw; top: 0vw;
+  background: linear-gradient( black, white);
+}
+#screen2 {
+  width: 21vw;
+  height: 18.5vw;
+  position: absolute;
+  left: 0vw; top: 18.5vw;
+  background: linear-gradient( white, black);
+}
+
+
+#phoneDisplayX { /* display time, signal, battery */
+  width: 21vw;
+  height: 2vw;
+  position: fixed;
+  left: 27vw; top: 1.25vw;
+  background: linear-gradient( black, white);
+  background-position: center;
+  border-radius: 15px;
+}
+
+
+
+
+
+
+
+
+
+.section {
+  width: 7vw;
+  height: 35vw;
+  box-shadow: 0px 0px 20px black;
+  border-radius: 0vw;
+  opacity: 0.5;
+  filter: grayscale(50%);
+  position: absolute;
+  top: 11vw;
+}
+
+#middle { 
+  background-color: orange;
+  left: 7vw;
+}
+
+#leftHand {
+  background-color: red;
+  left: 0vw;
+}
+
+#rightHand { 
+  background-color: blue;
+  left: 14vw;
+  
+}
+div.section:hover {
+  width: 7vw;
+  height: 30vw;
+  opacity: 1;
+  filter: grayscale(30%);
+  border-radius: 1vw;
+  top: 10vw;
+}
+div#rightHand: hover {
+  left: 14vw;
+}
+div#middle:hover {
+  left: 7vw;
+}
+div#leftHand:hover {
+  left: 0vw;
+}
+
+.wheel {
+  width: 15vw;
+  height: 15vw;
+  /*background-color: rgb(0, 0, 0);*/
+  position: relative;
+  top: 5vw; left: 0vw;
+  border: 2vw solid white;
+  box-shadow: 0px 0px 20px black;
+  border-radius: 15vw;
+}
+
+h1 {
+  position: relative;
+  color : red;
+  text-align: center;
+  text-decoration: line-through;
+  text-indent: 200px;
+  font-size: 200px;
+
+}
