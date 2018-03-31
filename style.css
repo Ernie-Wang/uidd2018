@@ -1,16 +1,6 @@
 #bottom {
   width: 60vw;
   height: 50vw;
-	position: fixed;
-	margin-top: 0; left: 22vw;
-  background-image: url("livingRoom.jpg");
-  background-size: 60vw;
-  background-position: center top;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  opacity: 0.5;
-  filter: grayscale(100%);  
-}
 	
 #back {
   
@@ -109,10 +99,273 @@ div.selection:hover {
 
 h1 {
  	position: relative;
+=======
+
+.signal {
+  width: 0.5vw;
+  height: 0.5vw;
+  border-radius: 0.5vw;
+  background-color: white;
+  position: absolute;
+  top: 0.5vw;
+}
+
+#signal1 {
+  left: 0.7vw;
+}
+#signal2 {
+  left: 1.3vw;
+}
+#signal3 {
+  left: 1.9vw;
+}
+#signal4 {
+  left: 2.5vw;
+}
+#signal5 {
+  left: 3.1vw;
+}
+
+
+
+
+#time {
+  width: 21vw;
+  height: 1vw;
+  position: absolute;
+  top: 0.2vw; left: 0vw;
+  font-size: 1vw;
+  font-weight: bolder;
+  font-family: sans-serif;
+  text-align: center;
+  color: white; 
+}
+
+
+
+
+.battery {
+  position: absolute;
+  top: 0.5vw; 
+  border-radius: 0.1vw;
+  background: white;
+}
+
+#battery1 {
+  width: 1.5vw;
+  height: 0.5vw;
+  right: 1.5vw;
+}
+#battery2 {
+  border-radius: 0.05vw;
+  width: 0.18vw;
+  height: 0.35vw;
+  right: 1.305vw;
+  top: 0.605vw;
+  opacity: 0.7;
+}
+
+
+
+#screen {
+  width: 21vw;
+  height: 37vw;
+  position: fixed;
+  left: 27vw; top: 1.25vw;
+  border-radius: 15px;
+  overflow: hidden;
+  background: linear-gradient( black, white, black, white,black);
+}
+
+
+
+
+.Icon {
+  position: absolute;
+  top: 4vw; left: 4.5vw;
+  height: 12vw;
+  width: 12vw;
+  border-radius: 12vw;
+  background: radial-gradient( white, gray);
+  box-shadow:0vw 0vw 2vw black;
+  
+  
+}
+#back {
+  box-shadow:0vw 0vw 0vw black;
+
+}
+
+#intro {
+  background-image:  url("idIcon.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+
+
+}
+#!club {
+  background-image:  url("clubIcon.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+
+
+}
+#!contactMe {
+  background-image:  url("contactIcon.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+
+
+}
+
+div.!Icon:hover {
+  height: 12vw;
+  width: 12vw;
+  border-radius: 12vw;
+  background: radial-gradient( white, black);
+  box-shadow:0vw 0vw 2vw black;
+}
+
+
+
+
+.tag {
+  transform: rotate(90deg);
+  font-size: 6vw;
+  position: absolute;
+  font-family: Fantasy;
+}
+div#middle .tag {
+  top: -2.5vw; left: -4.5vw;
+}
+div#rightHand p#one {
+  font-size: 4vw;
+  top: 0.5vw; right: -5vw;
+}
+div#rightHand p#two {
+  font-size: 4vw;
+  top: 7vw; right: 2.5vw;
+}
+div#leftHand .tag {  
+  top: -3.5vw; left: -4.5vw;
+}
+
+
+
+
+
+
+
+
+.section {
+  width: 7vw;
+  height: 35vw;
+  box-shadow: 0px 0px 20px black;
+  border-radius: 0vw;
+  opacity: 0.5;
+  filter: grayscale(50%);
+  position: absolute;
+  top: 19vw;
+}
+
+#middle { 
+  background-color: orange;
+  left: 7vw;
+}
+
+
+#leftHand {
+  background-color: red;
+  left: 0vw;
+}
+
+#rightHand { 
+  background-color: blue;
+  left: 14vw;
+  
+}
+div.section:hover {
+  width: 7vw;
+  height: 30vw;
+  opacity: 1;
+  filter: grayscale(30%);
+  border-radius: 1vw;
+  top: 18vw;
+}
+div#rightHand:hover {
+  left: 14vw;
+}
+div#middle:hover {
+  left: 7vw;
+}
+div#leftHand:hover {
+  left: 0vw;
+}
+
+
+
+
+
+
+
+
+
+/*
+
+
+#!screen1 {
+  width: 21vw;
+  height: 18.5vw;
+  position: absolute;
+  left: 0vw; top: 0vw;
+  background: linear-gradient( black, white);
+}
+
+#!screen2 {
+  width: 21vw;
+  height: 18.5vw;
+  position: absolute;
+  left: 0vw; top: 18.5vw;
+  background: linear-gradient( white, black);
+}
+
+position: absolute; top: 19vw;
+  border-color: black transparent transparent transparent;
+  border-style: solid solid solid solid;
+  border-width: 3.5vw;
+ 
+  /* 設定 width、height 可更好理解原理 
+  height: 0px;
+  width: 0px;
+
+
+
+
+.wheel {
+  width: 15vw;
+  height: 15vw;
+  /*background-color: rgb(0, 0, 0);
+  position: relative;
+  top: 5vw; left: 0vw;
+  border: 2vw solid white;
+  box-shadow: 0px 0px 20px black;
+  border-radius: 15vw;
+}
+
+h1 {
+  position: relative;
+>>>>>>> origin/gh-page1
   color : red;
   text-align: center;
   text-decoration: line-through;
   text-indent: 200px;
   font-size: 200px;
 
+<<<<<<< HEAD
 }
+=======
+}*/
+>>>>>>> origin/gh-page1
