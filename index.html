@@ -96,6 +96,8 @@
         light.shadow.camera.near = 0.5;    // default
         light.shadow.camera.far = 500;     // default
 
+        light.shadow.camera.visible = true;
+
 
         scene.add( light.target );
         scene.add( light );
@@ -111,7 +113,7 @@
         group = new THREE.Group();
         group.position.y = 250;
         //group.rotation.x = 0;
-        group.rotation.x = Math.PI *2/12;
+        group.rotation.x = Math.PI *2/10;
         scene.add( group );
         //group.add( light );
 
@@ -119,7 +121,7 @@
 
         // the rotating circle
         var geometry = new THREE.BoxGeometry( 60, 120, 10 );
-        var material = new THREE.MeshPhongMaterial( { color:0x444444, opacity: 0.9, transparent: true} );
+        var material = new THREE.MeshPhongMaterial( { color:0x444444, opacity: 0.95, transparent: true} );
 
         var object = [dayOfMonth];
         for ( var i = 0; i < dayOfMonth; i ++ ) {
