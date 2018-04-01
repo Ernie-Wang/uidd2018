@@ -97,9 +97,6 @@ div.selection:hover {
  	border-radius: 15vw;
 }
 
-h1 {
- 	position: relative;
-=======
 
 .signal {
   width: 0.5vw;
@@ -357,15 +354,10 @@ position: absolute; top: 19vw;
 
 h1 {
   position: relative;
->>>>>>> origin/gh-page1
   color : red;
   text-align: center;
   text-decoration: line-through;
   text-indent: 200px;
-  font-size: 200px;
 
-<<<<<<< HEAD
 }
-=======
 }*/
->>>>>>> origin/gh-page1
