@@ -49,16 +49,16 @@
       //------main execute function
 
 
-      /*
+      
       var loader = new THREE.FontLoader();
       loader.load( 'helvetiker_regular.typeface.json', function ( font ) {
         init(font);
         animate();
       } );
-      */
+      /*
       init();
       animate();
-      
+      */
       //----------------------------
 
 
@@ -144,13 +144,7 @@
         var material = new THREE.MeshLambertMaterial( { color:0x444444, opacity: 0.95, transparent: true} );//0.95
         var object = [dayOfMonth];
         var numbers = [dayOfMonth];
-        var textGeometry;
-
-
-
-        var loader = new THREE.FontLoader();
-        loader.load( 'helvetiker_regular.typeface.json', function ( font ) {
-          textGeometry = new THREE.TextGeometry( i, {
+        var textGeometry = new THREE.TextGeometry( i, {
             font: font,
             size:80,
             height:5,
@@ -159,7 +153,6 @@
             bevelSize: 8,
             bevelSegments: 5
           });
-        } );
 
 
 
