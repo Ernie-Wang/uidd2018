@@ -184,7 +184,7 @@
           });
           */
           numbers[i] = new THREE.Mesh( textGeometry, material);
-          numbers[i].position.set( Math.cos(Math.PI *2*i/dayOfMonth)*radius, 0, Math.sin(Math.PI *2*i/dayOfMonth)*radius);
+          numbers[i].position.set( Math.cos(Math.PI *2*i/dayOfMonth)*radius, 15, Math.sin(Math.PI *2*i/dayOfMonth)*radius);
 
           object[i] = new THREE.Mesh( geometry, material );
           object[i].position.set( Math.cos(Math.PI *2*i/dayOfMonth)*radius, 0, Math.sin(Math.PI *2*i/dayOfMonth)*radius);
@@ -197,7 +197,7 @@
 
 
           group.add( numbers[i] );
-          //group.add( object[i] );
+          group.add( object[i] );
           
         }
 
