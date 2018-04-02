@@ -47,8 +47,17 @@
       var radius = 15;
 
       //------main execute function
-      init();
-      animate();
+
+
+
+      var loader = new THREE.FontLoader();
+      loader.load( 'helvetiker_regular.typeface.json', function ( font ) {
+        init(font);
+        animate();
+      } );
+
+
+      
       //----------------------------
 
 
@@ -134,22 +143,18 @@
         var material = new THREE.MeshLambertMaterial( { color:0x444444, opacity: 0.95, transparent: true} );//0.95
         var object = [dayOfMonth];
         var numbers = [dayOfMonth];
-        var loader = [dayOfMonth];
         for ( var i = 0; i < dayOfMonth; i ++ ) {
-          loader[i] = new THREE.FontLoader();
           
-
-          loader[i].load( 'helvetiker_regular.typeface.json', function ( font ) {
-            numbers[i] = new THREE.TextGeometry( i, {
-              font: font,
-              size:80,
-              height:5,
-              bevelEnabled: true,
-              bevelThickness: 10,
-              bevelSize: 8,
-              bevelSegments: 5
-            });
+          numbers[i] = new THREE.TextGeometry( i, {
+            font: font,
+            size:80,
+            height:5,
+            bevelEnabled: true,
+            bevelThickness: 10,
+            bevelSize: 8,
+            bevelSegments: 5
           });
+          
 
 
           object[i] = new THREE.Mesh( geometry, material );
@@ -162,7 +167,7 @@
 
 
 
-          //group.add( numbers[i] );
+          group.add( numbers[i] );
           group.add( object[i] );
           
         }
