@@ -146,12 +146,12 @@
         var numbers = [dayOfMonth];
         var textGeometry = new THREE.TextGeometry( i, {
             font: font,
-            size:80,
-            height:5,
+            size:5,
+            height:0.5,
             bevelEnabled: true,
-            bevelThickness: 10,
-            bevelSize: 8,
-            bevelSegments: 5
+            bevelThickness: 1,
+            bevelSize: 0.8,
+            bevelSegments: 0.5
           });
 
 
@@ -178,7 +178,7 @@
           });
           */
           numbers[i] = new THREE.Mesh( textGeometry, material);
-          numbers[i].position.set( Math.cos(Math.PI *2*i/dayOfMonth)*radius, 15, Math.sin(Math.PI *2*i/dayOfMonth)*radius);
+          numbers[i].position.set( Math.cos(Math.PI *2*i/dayOfMonth)*radius, 10, Math.sin(Math.PI *2*i/dayOfMonth)*radius);
 
           object[i] = new THREE.Mesh( geometry, material );
           object[i].position.set( Math.cos(Math.PI *2*i/dayOfMonth)*radius, 0, Math.sin(Math.PI *2*i/dayOfMonth)*radius);
