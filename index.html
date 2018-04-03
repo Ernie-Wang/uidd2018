@@ -155,27 +155,34 @@
 
 
         // set the center Month word
-        var marchGeometry = new THREE.TextGeometry( 'Mar.' , {
+        var textMaterial = new THREE.MeshLambertMaterial( { color:0x227700, opacity: 1, transparent: true} );//0.95
+        var marchGeometry = new THREE.TextGeometry( 'March' , {
             font: font,
             size: 3,
-            height: 0.7,
-            bevelEnabled: true,
+            height: 1,
+            bevelEnabled: false,
             bevelThickness: 0.375,
             bevelSize: 0.3,
             bevelSegments: 0.3125
         });
         month[2] = new THREE.Mesh( marchGeometry, textMaterial);
-        month[2].position.set( 5, 0, 0);
+        month[2].position.set( -5.5, 0, 0);
         
-        month[2].rotation.x = -Math.PI /4 ;
+        month[2].castShadow = true;
+
+        month[2].rotation.x = -Math.PI /9 ;
         month[2].scale.multiplyScalar( 1 );
         scene.add( month[2] );
 
 
+        var spotLight = new THREE.SpotLight(0xffffff, 7);
+        spotLight.distance = 15;
+        spotLight.position.set( 6.5, -1, 5);
+        spotLight.target = month[2];
 
 
 
-
+        scene.add( spotLight );
 
 
         renderer = new THREE.WebGLRenderer( { antialias: true } );
