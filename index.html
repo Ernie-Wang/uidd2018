@@ -155,7 +155,7 @@
           if (i<9)
             numbers[i].position.set( 0, numberHeight, 0);
           else
-            numbers[i].position.set( 0, numberHeight, 1);
+            numbers[i].position.set( 0, numberHeight, 0.8);
           numbers[i].rotation.y = Math.PI * 0.5 ;
 
 
@@ -179,7 +179,7 @@
 
 
           // set object
-          object[i] = new THREE.group();
+          object[i] = new THREE.Group();
           object[i].add( numbers[i] );
           object[i].add( stele[i] );
 
