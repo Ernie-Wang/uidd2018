@@ -53,8 +53,8 @@
       var month = [12];
       var presentMonth = 2;
 
-      //var cameraShortDisParameter = 0.0375;
-      //var cameraLongDisParameter = 0.05;
+      var cameraDisSlope = -0.02247;
+      var cameraDisShifting = 49;
 
       //------main execute function
 
@@ -77,14 +77,16 @@
         info.style.top = '30px';
         info.style.width = '100%';
         info.style.textAlign = 'center';
-        info.innerHTML = 'Drag to spin';
+        info.innerHTML = window.innerHeight;
+        //info.innerHTML = 'Drag to spin';
         container.appendChild( info );
 
         camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, 2000 );
-       // var shorter = window.innerWidth;
-       // if (window.innerHeight < window.innerWidth)
-       //   shorter = window.innerHeight;
-        camera.position.set( 0, 33, 44 );
+        var shorter = window.innerWidth;
+        if (window.innerHeight < window.innerWidth)
+          shorter = window.innerHeight;
+        var cameraYPosition = shorter*cameraDisSlope+cameraDisShifting;
+        camera.position.set( 0, cameraYPosition, cameraYPosition*4/3 );
 
         camera.lookAt(new THREE.Vector3(0, 0, 0));
         scene = new THREE.Scene();
