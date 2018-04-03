@@ -57,21 +57,10 @@
         init(font);
         animate();
       } );
-      /*
-      init();
-      animate();
-      */
-      //----------------------------
-
-
-
 
 
 
       function init(font) {
-
-
-
 
 
         container = document.createElement( 'div' );
@@ -135,10 +124,7 @@
 
         group = new THREE.Group();
         group.position.y = 0;
-        //group.rotation.x = 0;
-        //group.rotation.x = Math.PI *2/10;
         scene.add( group );
-        //group.add( light );
 
 
 
@@ -148,68 +134,59 @@
         
         var textMaterial = new THREE.MeshLambertMaterial( { color:0xff8800, opacity: 1, transparent: true} );//0.95
         var object = [dayOfMonth];
+        var stele = [dayOfMonth];
         var numbers = [dayOfMonth];
         
 
 
 
-
-
-
-
-
-
-
-
-
         for ( var i = 0; i < dayOfMonth; i ++ ) {
-          /*
-          numbers[i] = new THREE.TextGeometry( i, {
-            font: font,
-            size:80,
-            height:5,
-            bevelEnabled: true,
-            bevelThickness: 10,
-            bevelSize: 8,
-            bevelSegments: 5
-          });
-          */
+
+
+          // set numbers
           var textGeometry = new THREE.TextGeometry( i+1 , {
             font: font,
             size: 2,
             height: 0.5,
-            //bevelEnabled: true,
-            //bevelThickness: 0.1,
-            //bevelSize: 0.05,
-            //bevelSegments: 0.05
           });
           var numberHeight = 5;
           numbers[i] = new THREE.Mesh( textGeometry, textMaterial);
+
           if (i<9)
-            numbers[i].position.set( Math.cos(Math.PI *2*i/dayOfMonth + 0.03)*radius, numberHeight, Math.sin(Math.PI *2*i/dayOfMonth + 0.03)*radius);
+            numbers[i].position.set( 0, numberHeight, 0);
           else
-            numbers[i].position.set( Math.cos(Math.PI *2*i/dayOfMonth + 0.06)*radius, numberHeight, Math.sin(Math.PI *2*i/dayOfMonth + 0.06)*radius);
+            numbers[i].position.set( 0, numberHeight, 1);
+          numbers[i].rotation.y = Math.PI * 0.5 ;
 
 
-
-
-          numbers[i].rotation.y = -Math.PI * ( 2*i/dayOfMonth - 0.5) ;
-
+          // if (i<9)
+          //   numbers[i].position.set( Math.cos(Math.PI *2*i/dayOfMonth + 0.03)*radius, numberHeight, Math.sin(Math.PI *2*i/dayOfMonth + 0.03)*radius);
+          // else
+          //   numbers[i].position.set( Math.cos(Math.PI *2*i/dayOfMonth + 0.06)*radius, numberHeight, Math.sin(Math.PI *2*i/dayOfMonth + 0.06)*radius);
+          // numbers[i].rotation.y = -Math.PI * ( 2*i/dayOfMonth - 0.5) ;
           numbers[i].scale.multiplyScalar( 0.5 );
 
-          object[i] = new THREE.Mesh( geometry, material );
-          object[i].position.set( Math.cos(Math.PI *2*i/dayOfMonth)*radius, 0, Math.sin(Math.PI *2*i/dayOfMonth)*radius);
 
+
+          // set stele
+          stele[i] = new THREE.Mesh( geometry, material );
+          // stele[i].position.set( Math.cos(Math.PI *2*i/dayOfMonth)*radius, 0, Math.sin(Math.PI *2*i/dayOfMonth)*radius);
+          // stele[i].rotation.y = -Math.PI *2*i/dayOfMonth;
+          stele[i].scale.multiplyScalar( 1 );
+          stele[i].castShadow = true;
+          stele[i].receiveShadow = true;
+
+
+
+          // set object
+          object[i] = new THREE.group();
+          object[i].add( numbers[i] );
+          object[i].add( stele[i] );
+
+          object[i].position.set( Math.cos(Math.PI *2*i/dayOfMonth)*radius, 0, Math.sin(Math.PI *2*i/dayOfMonth)*radius);
           object[i].rotation.y = -Math.PI *2*i/dayOfMonth;
 
-          object[i].scale.multiplyScalar( 1 );
-          object[i].castShadow = true;
-          object[i].receiveShadow = true;
 
-
-
-
-          group.add( numbers[i] );
           group.add( object[i] );
           
         }
