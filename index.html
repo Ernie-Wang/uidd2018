@@ -53,6 +53,9 @@
       var month = [12];
       var presentMonth = 2;
 
+      var cameraShortDisParameter = 1111.1111;
+      var cameraLongDisParameter = 1111.1111*1.3333;
+
       //------main execute function
 
 
@@ -78,7 +81,7 @@
         container.appendChild( info );
 
         camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, 2000 );
-        camera.position.set( 0, 30, 40 );
+        camera.position.set( 0, cameraShortDisParameter*window.innerHeight, cameraLongDisParameter*window.innerHeight );
 
         camera.lookAt(new THREE.Vector3(0, 0, 0));
         scene = new THREE.Scene();
