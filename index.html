@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>three.js webgl - geometry - NURBS</title>
+    <title>First Cooperation Project</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     <style>
@@ -153,7 +153,6 @@
         scene.add(planeMesh);
 
 
-
         // set the center Month word
         var textMaterial = new THREE.MeshLambertMaterial( { color:0x227700, opacity: 1, transparent: true} );//0.95
         var marchGeometry = new THREE.TextGeometry( 'March' , {
@@ -165,8 +164,21 @@
             bevelSize: 0.3,
             bevelSegments: 0.3125
         });
+
+
+        var monthCenter = new THREE.Vector3();
+        var geometry = month[2].geometry;
+
+        geometry.computeBoundingBox();
+
+        var monthCenter = geometry.boundingBox.getCenter();
+        //month[2].localToWorld( monthCenter );
+
+
+
         month[2] = new THREE.Mesh( marchGeometry, textMaterial);
-        month[2].position.set( -5.5, 0, 0);
+        month[2].position.set( -monthCenter.x, 0, 0);
+        //month[2].position = planeCenter;
         
         month[2].castShadow = true;
 
@@ -175,13 +187,14 @@
         scene.add( month[2] );
 
 
+
+
+
+
         var spotLight = new THREE.SpotLight(0xffffff, 7);
         spotLight.distance = 15;
         spotLight.position.set( 6.5, -1, 5);
         spotLight.target = month[2];
-
-
-
         scene.add( spotLight );
 
 
