@@ -166,17 +166,21 @@
         });
 
 
-        var monthCenter = new THREE.Vector3();
-        var geometry = month[2].geometry;
 
-        geometry.computeBoundingBox();
 
-        var monthCenter = geometry.boundingBox.getCenter();
-        //month[2].localToWorld( monthCenter );
+
+
 
 
 
         month[2] = new THREE.Mesh( marchGeometry, textMaterial);
+        var monthCenter = new THREE.Vector3();
+        var monthgeometry = month[2].geometry;
+        monthgeometry.computeBoundingBox();
+        monthgeometry.boundingBox.getCenter( monthCenter );
+        //var monthCenter = monthgeometry.boundingBox.getCenter( monthCenter );
+        //month[2].localToWorld( monthCenter );
+
         month[2].position.set( -monthCenter.x, 0, 0);
         //month[2].position = planeCenter;
         
@@ -193,7 +197,7 @@
 
         var spotLight = new THREE.SpotLight(0xffffff, 7);
         spotLight.distance = 15;
-        spotLight.position.set( 6.5, -1, 5);
+        spotLight.position.set( 1+monthCenter.x, -1, 5);
         spotLight.target = month[2];
         scene.add( spotLight );
 
