@@ -50,6 +50,7 @@
       var object = [dayOfMonth];
       var stele = [dayOfMonth];
       var numbers = [dayOfMonth];
+      var month = [12];
 
       //------main execute function
 
@@ -115,7 +116,7 @@
           var textGeometry = new THREE.TextGeometry( i+1 , {
             font: font,
             size: 2,
-            height: 0.5,
+            height: 0.5
           });
           var numberHeight = 5;
           numbers[i] = new THREE.Mesh( textGeometry, textMaterial);
@@ -140,18 +141,40 @@
           object[i].position.set( Math.cos(Math.PI *2*i/dayOfMonth)*radius, 0, Math.sin(Math.PI *2*i/dayOfMonth)*radius);
           object[i].rotation.y = -Math.PI *2*i/dayOfMonth;
 
-
-          group.add( object[i] );
-          
+          group.add( object[i] );          
         }
 
-        var planeGeo = new THREE.PlaneGeometry(100,100);
+        var planeGeo = new THREE.PlaneGeometry(200,200);
         var planeMat = new THREE.MeshLambertMaterial({  color:0xffffff, wireframe:false });
         var planeMesh = new THREE.Mesh(planeGeo, planeMat);
         planeMesh.position.set(0, -2, 0);
         planeMesh.rotation.x = Math.PI *(-1/2);
         planeMesh.receiveShadow = true;
         scene.add(planeMesh);
+
+
+
+        // set the center Month word
+        var marchGeometry = new THREE.TextGeometry( 'Mar.' , {
+            font: font,
+            size: 3,
+            height: 0.7,
+            bevelEnabled: true,
+            bevelThickness: 0.375,
+            bevelSize: 0.3,
+            bevelSegments: 0.3125
+        });
+        month[2] = new THREE.Mesh( marchGeometry, textMaterial);
+        month[2].position.set( 5, 0, 0);
+        
+        month[2].rotation.x = -Math.PI /4 ;
+        month[2].scale.multiplyScalar( 1 );
+        scene.add( month[2] );
+
+
+
+
+
 
 
 
