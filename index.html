@@ -162,17 +162,57 @@
 
 
         // set the center Month word
-        var textMaterial = new THREE.MeshLambertMaterial( { color:0x227700, opacity: 1, transparent: true} );//0.95
-        var marchGeometry = new THREE.TextGeometry( 'March' , {
-            font: font,
-            size: 3,
-            height: 1,
-            bevelEnabled: false,
-            bevelThickness: 0.375,
-            bevelSize: 0.3,
-            bevelSegments: 0.3125
-        });
-        month[2] = new THREE.Mesh( marchGeometry, textMaterial);
+
+        var textMaterial = new THREE.MeshLambertMaterial( { color:0x227700, opacity: 1, transparent: true} );
+        for (var i = 0; i <12; i++) {
+          var text;
+          if (i==0)
+            text = 'Jan.';
+          else if (i==1)
+            text = 'Feb.';
+          else if (i==2)
+            text = 'Mar.';
+          else if (i==3)
+            text = 'Apr.';
+          else if (i==4)
+            text = 'May';
+          else if (i==5)
+            text = 'Jun.';
+          else if (i==6)
+            text = 'Jul.';
+          else if (i==7)
+            text = 'Aug.';
+          else if (i==8)
+            text = 'Sep.';
+          else if (i==9)
+            text = 'Oct.';
+          else if (i==10)
+            text = 'Nov.';
+          else
+            text = 'Dec.';
+
+
+
+          var textMaterial = new THREE.MeshLambertMaterial( { color:0x227700, opacity: 1, transparent: true} );
+          var marchGeometry = new THREE.TextGeometry( text , {
+              font: font,
+              size: 3,
+              height: 1,
+              bevelEnabled: false,
+              bevelThickness: 0.375,
+              bevelSize: 0.3,
+              bevelSegments: 0.3125
+          });
+          month[i] = new THREE.Mesh( marchGeometry, textMaterial);
+
+
+
+
+        }
+
+
+
+        
         var monthCenter = new THREE.Vector3();
         var monthgeometry = month[2].geometry;
         monthgeometry.computeBoundingBox();
