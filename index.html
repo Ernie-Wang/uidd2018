@@ -47,6 +47,9 @@
       var windowHalfY = window.innerHeight / 2;
       var dayOfMonth = 30;
       var radius = 15;
+      var object = [dayOfMonth];
+      var stele = [dayOfMonth];
+      var numbers = [dayOfMonth];
 
       //------main execute function
 
@@ -73,8 +76,6 @@
         info.innerHTML = 'Drag to spin';
         container.appendChild( info );
 
-
-
         camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, 2000 );
         camera.position.set( 0, 30, 40 );
 
@@ -82,66 +83,33 @@
         scene = new THREE.Scene();
         scene.background = new THREE.Color( 0xf0f0f0 );
 
-
-
-
-
-
-
         //Light
         scene.add( new THREE.AmbientLight( 0xe8e8e8, 1 ) );
-        //scene.add( new THREE.HemisphereLight( 0x808080, 1 ) );
         var dirLight = new THREE.DirectionalLight( 0xffffff, 1 );
         dirLight.position.set( 25, 25, -20);
         dirLight.castShadow = true;
-        //dirLight.shadow.camera.fov = 50;
-        //dirLight.shadowMapBias = 0.0039;
-        //dirLight.shadow.camera.near = 0;    // default
-        //dirLight.shadow.camera.far = 500;     // default
-
-
         dirLight.shadow.mapSize.width = 1024;  // default
         dirLight.shadow.mapSize.height = 1024; // default
         dirLight.shadow.camera.left = -50;
         dirLight.shadow.camera.right = 50;
         dirLight.shadow.camera.top = 20;
         dirLight.shadow.camera.bottom = -100;
-
-        //dirLight.shadow.camera.visible = true;
         dirLight.intensity = 1;
-;
-        //scene.add( dirLight.target );
         scene.add( dirLight );
-
-
-
-
-
-
-
-
-
 
         group = new THREE.Group();
         group.position.y = 0;
         scene.add( group );
-
-
 
         // the rotating circle
         var geometry = new THREE.CubeGeometry( 3, 10, 0.3 );
         var material = new THREE.MeshLambertMaterial( { color:0x444444, opacity: 0.95, transparent: true} );//0.95
         
         var textMaterial = new THREE.MeshLambertMaterial( { color:0xff8800, opacity: 1, transparent: true} );//0.95
-        var object = [dayOfMonth];
-        var stele = [dayOfMonth];
-        var numbers = [dayOfMonth];
+        
         
 
-
-
         for ( var i = 0; i < dayOfMonth; i ++ ) {
-
 
           // set numbers
           var textGeometry = new THREE.TextGeometry( i+1 , {
@@ -151,32 +119,18 @@
           });
           var numberHeight = 5;
           numbers[i] = new THREE.Mesh( textGeometry, textMaterial);
-
           if (i<9)
             numbers[i].position.set( 0, numberHeight, 0);
           else
             numbers[i].position.set( 0, numberHeight, 0.8);
           numbers[i].rotation.y = Math.PI * 0.5 ;
-
-
-          // if (i<9)
-          //   numbers[i].position.set( Math.cos(Math.PI *2*i/dayOfMonth + 0.03)*radius, numberHeight, Math.sin(Math.PI *2*i/dayOfMonth + 0.03)*radius);
-          // else
-          //   numbers[i].position.set( Math.cos(Math.PI *2*i/dayOfMonth + 0.06)*radius, numberHeight, Math.sin(Math.PI *2*i/dayOfMonth + 0.06)*radius);
-          // numbers[i].rotation.y = -Math.PI * ( 2*i/dayOfMonth - 0.5) ;
           numbers[i].scale.multiplyScalar( 0.5 );
-
-
 
           // set stele
           stele[i] = new THREE.Mesh( geometry, material );
-          // stele[i].position.set( Math.cos(Math.PI *2*i/dayOfMonth)*radius, 0, Math.sin(Math.PI *2*i/dayOfMonth)*radius);
-          // stele[i].rotation.y = -Math.PI *2*i/dayOfMonth;
           stele[i].scale.multiplyScalar( 1 );
           stele[i].castShadow = true;
           stele[i].receiveShadow = true;
-
-
 
           // set object
           object[i] = new THREE.Group();
@@ -190,9 +144,6 @@
           group.add( object[i] );
           
         }
-
-
-
 
         var planeGeo = new THREE.PlaneGeometry(100,100);
         var planeMat = new THREE.MeshLambertMaterial({  color:0xffffff, wireframe:false });
