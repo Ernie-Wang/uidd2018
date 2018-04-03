@@ -53,8 +53,8 @@
       var month = [12];
       var presentMonth = 2;
 
-      var cameraShortDisParameter = 1111.1111;
-      var cameraLongDisParameter = 1111.1111*1.3333;
+      //var cameraShortDisParameter = 0.0375;
+      //var cameraLongDisParameter = 0.05;
 
       //------main execute function
 
@@ -81,7 +81,10 @@
         container.appendChild( info );
 
         camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, 2000 );
-        camera.position.set( 0, cameraShortDisParameter*window.innerHeight, cameraLongDisParameter*window.innerHeight );
+       // var shorter = window.innerWidth;
+       // if (window.innerHeight < window.innerWidth)
+       //   shorter = window.innerHeight;
+        camera.position.set( 0, 33, 44 );
 
         camera.lookAt(new THREE.Vector3(0, 0, 0));
         scene = new THREE.Scene();
