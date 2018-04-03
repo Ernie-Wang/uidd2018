@@ -51,6 +51,7 @@
       var stele = [dayOfMonth];
       var numbers = [dayOfMonth];
       var month = [12];
+      var presentMonth = 2;
 
       //------main execute function
 
@@ -78,7 +79,7 @@
         container.appendChild( info );
 
         camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, 2000 );
-        camera.position.set( 0, 30, 40 );
+        camera.position.set( 0vw, 30vw, 40vw );
 
         camera.lookAt(new THREE.Vector3(0, 0, 0));
         scene = new THREE.Scene();
@@ -164,15 +165,6 @@
             bevelSize: 0.3,
             bevelSegments: 0.3125
         });
-
-
-
-
-
-
-
-
-
         month[2] = new THREE.Mesh( marchGeometry, textMaterial);
         var monthCenter = new THREE.Vector3();
         var monthgeometry = month[2].geometry;
