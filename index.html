@@ -332,16 +332,34 @@
           target_rotation = target_rotation_on_mouse_down + ( mouse_x - mouse_x_on_mouse_down ) * 0.07;
         }
       }
-
-
-
       function normalizeGroupTargetRotation() {
         var tmp = Math.PI*2/day_of_month;
-        
         target_rotation = Math.round( target_rotation / tmp ) * tmp ; 
-        
-
       }
+
+
+
+
+      //if the stele is selected, the hole group rotated to the front and grow bigger
+      function selectStele(event) {
+        
+      }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
