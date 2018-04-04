@@ -266,6 +266,7 @@
         document.addEventListener( 'mousedown', onDocumentMouseDown, false );
         document.addEventListener( 'touchstart', onDocumentTouchStart, false );
         document.addEventListener( 'touchmove', onDocumentTouchMove, false );
+        document.addEventListener( 'click', onDocumentClick, false );
         //
         window.addEventListener( 'resize', onWindowResize, false );
       }
@@ -331,6 +332,9 @@
           mouse_x = event.touches[ 0 ].pageX - windowHalfX;
           target_rotation = target_rotation_on_mouse_down + ( mouse_x - mouse_x_on_mouse_down ) * 0.07;
         }
+      }
+      function onDocumentClick(event) {
+        target_rotation = group.rotation.y;
       }
       function normalizeGroupTargetRotation() {
         var tmp = Math.PI*2/day_of_month;
