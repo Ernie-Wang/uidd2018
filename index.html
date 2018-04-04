@@ -266,11 +266,9 @@
         document.addEventListener( 'mousedown', onDocumentMouseDown, false );
         document.addEventListener( 'touchstart', onDocumentTouchStart, false );
         document.addEventListener( 'touchmove', onDocumentTouchMove, false );
-        document.addEventListener( 'click', onDocumentClick, false );
         //
         window.addEventListener( 'resize', onWindowResize, false );
       }
-
 
 
 
@@ -296,6 +294,7 @@
       //
       function onDocumentMouseDown( event ) {
         event.preventDefault();
+        target_rotation = group.rotation.y;
         document.addEventListener( 'mousemove', onDocumentMouseMove, false );
         document.addEventListener( 'mouseup', onDocumentMouseUp, false );
         document.addEventListener( 'mouseout', onDocumentMouseOut, false );
