@@ -39,22 +39,22 @@
       var container, stats;
       var camera, scene, renderer;
       var group;
-      var targetRotation = 0;
-      var targetRotationOnMouseDown = 0;
-      var mouseX = 0;
-      var mouseXOnMouseDown = 0;
+      var target_rotation = 0;
+      var target_rotation_on_mouse_down = 0;
+      var mouse_x = 0;
+      var mouse_x_on_mouse_down = 0;
       var windowHalfX = window.innerWidth / 2;
       var windowHalfY = window.innerHeight / 2;
-      var dayOfMonth = 30;
+      var day_of_month = 30;
       var radius = 15;
-      var object = [dayOfMonth];
-      var stele = [dayOfMonth];
-      var numbers = [dayOfMonth];
+      var object = [day_of_month];
+      var stele = [day_of_month];
+      var numbers = [day_of_month];
       var month = [12];
-      var presentMonth = 2;
+      var present_month = 2;
 
-      var cameraDisSlope = -0.02247;
-      var cameraDisShifting = 49;
+      var camera_dis_slope = -0.02247;
+      var camera_dis_shifting = 49;
 
       //------main execute function
 
@@ -76,9 +76,9 @@
         info.style.position = 'absolute';
         info.style.top = '30px';
         info.style.width = '100%';
-        info.style.textAlign = 'center';
+        info.style.textAlign = 'center';9
         info.innerHTML = '';
-        info.innerHTML = targetRotation;
+        info.innerHTML = target_rotation;
         //info.innerHTML = 'Drag to spin';
         container.appendChild( info );
 
@@ -86,8 +86,8 @@
         var shorter = window.innerWidth;
         if (window.innerHeight < window.innerWidth)
           shorter = window.innerHeight;
-        var cameraYPosition = shorter*cameraDisSlope+cameraDisShifting;
-        camera.position.set( 0, cameraYPosition, cameraYPosition*4/3 );
+        var camera_y_position = shorter*camera_dis_slope+camera_dis_shifting;
+        camera.position.set( 0, camera_y_position, camera_y_position*4/3 );
 
         camera.lookAt(new THREE.Vector3(0, 0, 0));
         scene = new THREE.Scene();
@@ -95,40 +95,39 @@
 
         //Light
         scene.add( new THREE.AmbientLight( 0xe8e8e8, 1 ) );
-        var dirLight = new THREE.DirectionalLight( 0xffffff, 1 );
-        dirLight.position.set( 25, 25, -20);
-        dirLight.castShadow = true;
-        dirLight.shadow.mapSize.width = 1024;  // default
-        dirLight.shadow.mapSize.height = 1024; // default
-        dirLight.shadow.camera.left = -50;
-        dirLight.shadow.camera.right = 50;
-        dirLight.shadow.camera.top = 20;
-        dirLight.shadow.camera.bottom = -100;
-        dirLight.intensity = 1;
-        scene.add( dirLight );
+        var dir_light = new THREE.DirectionalLight( 0xffffff, 1 );
+        dir_light.position.set( 25, 25, -20);
+        dir_light.castShadow = true;
+        dir_light.shadow.mapSize.width = 1024;  // default
+        dir_light.shadow.mapSize.height = 1024; // default
+        dir_light.shadow.camera.left = -50;
+        dir_light.shadow.camera.right = 50;
+        dir_light.shadow.camera.top = 20;
+        dir_light.shadow.camera.bottom = -100;
+        dir_light.intensity = 1;
+        scene.add( dir_light );
 
         group = new THREE.Group();
         group.position.y = 0;
         scene.add( group );
 
         // the rotating circle
-        var geometry = new THREE.CubeGeometry( 3, 10, 0.3 );
-        var material = new THREE.MeshLambertMaterial( { color:0x444444, opacity: 0.95, transparent: true} );//0.95
-        
-        var textMaterial = new THREE.MeshLambertMaterial( { color:0xff8800, opacity: 1, transparent: true} );//0.95
-        
         
 
-        for ( var i = 0; i < dayOfMonth; i ++ ) {
+        for ( var i = 0; i < day_of_month; i ++ ) {
+          var cube_geometry = new THREE.CubeGeometry( 3, 10, 0.3 );
+          var cube_material = new THREE.MeshLambertMaterial( { color:0x444444, opacity: 0.95, transparent: true} );//0.95
+        
+          var text_material = new THREE.MeshLambertMaterial( { color:0xff8800, opacity: 1, transparent: true} );//0.95
 
           // set numbers
-          var textGeometry = new THREE.TextGeometry( i+1 , {
+          var text_geometry = new THREE.TextGeometry( i+1 , {
             font: font,
             size: 2,
             height: 0.5
           });
           var numberHeight = 5;
-          numbers[i] = new THREE.Mesh( textGeometry, textMaterial);
+          numbers[i] = new THREE.Mesh( text_geometry, text_material);
           if (i<9)
             numbers[i].position.set( 0, numberHeight, 0.4);
           else
@@ -137,7 +136,7 @@
           numbers[i].scale.multiplyScalar( 0.5 );
 
           // set stele
-          stele[i] = new THREE.Mesh( geometry, material );
+          stele[i] = new THREE.Mesh( cube_geometry, cube_material );
           stele[i].scale.multiplyScalar( 1 );
           stele[i].castShadow = true;
           stele[i].receiveShadow = true;
@@ -147,24 +146,25 @@
           object[i].add( numbers[i] );
           object[i].add( stele[i] );
 
-          object[i].position.set( Math.cos(Math.PI * (2*i/dayOfMonth + 0.5) )*radius, 0, Math.sin(Math.PI * (2*i/dayOfMonth + 0.5) )*radius);
-          object[i].rotation.y = Math.PI * (-2*i/dayOfMonth - 0.5 );
+          object[i].position.set( Math.cos(Math.PI * (2*i/day_of_month + 0.5) )*radius, 0, Math.sin(Math.PI * (2*i/day_of_month + 0.5) )*radius);
+          object[i].rotation.y = Math.PI * (-2*i/day_of_month - 0.5 );
 
           group.add( object[i] );          
         }
 
-        var planeGeo = new THREE.PlaneGeometry(200,200);
-        var planeMat = new THREE.MeshLambertMaterial({  color:0xffffff, wireframe:false });
-        var planeMesh = new THREE.Mesh(planeGeo, planeMat);
-        planeMesh.position.set(0, -2, 0);
-        planeMesh.rotation.x = Math.PI *(-1/2);
-        planeMesh.receiveShadow = true;
-        scene.add(planeMesh);
+        var plane_geometry = new THREE.PlaneGeometry(200,200);
+        var plane_material = new THREE.MeshLambertMaterial({  color:0xffffff, wireframe:false });
+        var plane_mesh = new THREE.Mesh(plane_geometry, plane_material);
+        plane_mesh.position.set(0, -2, 0);
+        plane_mesh.rotation.x = Math.PI *(-1/2);
+        plane_mesh.receiveShadow = true;
+
+        scene.add(plane_mesh);
 
 
         // set the center Month word
 
-        var textMaterial = new THREE.MeshLambertMaterial( { color:0x227700, opacity: 1, transparent: true} );
+        var text_material = new THREE.MeshLambertMaterial( { color:0x227700, opacity: 1, transparent: true} );
         for (var i = 0; i <12; i++) {
           var text;
           if (i==0)
@@ -194,8 +194,8 @@
 
 
 
-          var textMaterial = new THREE.MeshLambertMaterial( { color:0x227700, opacity: 1, transparent: true} );
-          var marchGeometry = new THREE.TextGeometry( text , {
+          var text_material = new THREE.MeshLambertMaterial( { color:0x227700, opacity: 1, transparent: true} );
+          var month_geometry = new THREE.TextGeometry( text , {
               font: font,
               size: 5,
               height: 2,
@@ -204,7 +204,7 @@
               bevelSize: 0.3,
               bevelSegments: 0.3125
           });
-          month[i] = new THREE.Mesh( marchGeometry, textMaterial);
+          month[i] = new THREE.Mesh( month_geometry, text_material);
 
           
 
@@ -217,14 +217,14 @@
 
 
         
-        var monthCenter = new THREE.Vector3();
-        var monthgeometry = month[2].geometry;
-        monthgeometry.computeBoundingBox();
-        monthgeometry.boundingBox.getCenter( monthCenter );
-        //var monthCenter = monthgeometry.boundingBox.getCenter( monthCenter );
-        //month[2].localToWorld( monthCenter );
+        var month_center = new THREE.Vector3();
+        var month_geometry = month[2].geometry;
+        month_geometry.computeBoundingBox();
+        month_geometry.boundingBox.getCenter( month_center );
+        //var month_center = month_geometry.boundingBox.getCenter( month_center );
+        //month[2].localToWorld( month_center );
 
-        month[2].position.set( -monthCenter.x, 0, 0);
+        month[2].position.set( -month_center.x, 0, 0);
         //month[2].position = planeCenter;
         
 
@@ -238,11 +238,11 @@
 
 
 
-        var spotLight = new THREE.SpotLight(0xffffff, 7);
-        spotLight.distance = 15;
-        spotLight.position.set( 1+monthCenter.x, -1, 5);
-        spotLight.target = month[2];
-        scene.add( spotLight );
+        var spot_light = new THREE.SpotLight(0xffffff, 7);
+        spot_light.distance = 15;
+        spot_light.position.set( 1+month_center.x, -1, 5);
+        spot_light.target = month[2];
+        scene.add( spot_light );
 
 
         renderer = new THREE.WebGLRenderer( { antialias: true } );
@@ -298,12 +298,12 @@
         document.addEventListener( 'mousemove', onDocumentMouseMove, false );
         document.addEventListener( 'mouseup', onDocumentMouseUp, false );
         document.addEventListener( 'mouseout', onDocumentMouseOut, false );
-        mouseXOnMouseDown = event.clientX - windowHalfX;
-        targetRotationOnMouseDown = targetRotation;
+        mouse_x_on_mouse_down = event.clientX - windowHalfX;
+        target_rotation_on_mouse_down = target_rotation;
       }
       function onDocumentMouseMove( event ) {
-        mouseX = event.clientX - windowHalfX;
-        targetRotation = targetRotationOnMouseDown + ( mouseX - mouseXOnMouseDown ) * 0.008;
+        mouse_x = event.clientX - windowHalfX;
+        target_rotation = target_rotation_on_mouse_down + ( mouse_x - mouse_x_on_mouse_down ) * 0.008;
       }
       function onDocumentMouseUp( event ) {
         document.removeEventListener( 'mousemove', onDocumentMouseMove, false );
@@ -316,22 +316,35 @@
         document.removeEventListener( 'mouseout', onDocumentMouseOut, false );
       }
       function onDocumentTouchStart( event ) {
-          targetRotation = group.rotation.y;
+          target_rotation = group.rotation.y;
         if ( event.touches.length == 1 ) {
           event.preventDefault();
-          mouseXOnMouseDown = event.touches[ 0 ].pageX - windowHalfX;
-          targetRotationOnMouseDown = targetRotation;
+          mouse_x_on_mouse_down = event.touches[ 0 ].pageX - windowHalfX;
+          target_rotation_on_mouse_down = target_rotation;
         }
         else
-          targetRotation = group.rotation.y;
+          target_rotation = group.rotation.y;
       }
       function onDocumentTouchMove( event ) {
         if ( event.touches.length == 1 ) {
           event.preventDefault();
-          mouseX = event.touches[ 0 ].pageX - windowHalfX;
-          targetRotation = targetRotationOnMouseDown + ( mouseX - mouseXOnMouseDown ) * 0.07;
+          mouse_x = event.touches[ 0 ].pageX - windowHalfX;
+          target_rotation = target_rotation_on_mouse_down + ( mouse_x - mouse_x_on_mouse_down ) * 0.07;
         }
       }
+
+
+
+      function normalizeGroupTargetRotation() {
+        var tmp = Math.PI*2/day_of_month;
+        
+        target_rotation = Math.round( target_rotation / tmp ) * tmp ; 
+        
+
+      }
+
+
+
       
 
 
@@ -343,13 +356,9 @@
       }
 
       function render() { //3D rotation function
-
-        var tmp = Math.PI*2/dayOfMonth;
-        
-        targetRotation = Math.round( targetRotation / tmp ) * tmp ; 
-        group.rotation.y += ( targetRotation - group.rotation.y ) * 0.008;
-        //group.rotation.y = Math.round( group.rotation.y / Math.PI*2/dayOfMonth ) * Math.PI*2/dayOfMonth; 
-        info.innerHTML = targetRotation;
+        normalizeGroupTargetRotation();
+        group.rotation.y += ( target_rotation - group.rotation.y ) * 0.008;
+        info.innerHTML = target_rotation;
         renderer.render( scene, camera );
       }
     </script>
