@@ -23,7 +23,7 @@
     </style>
   </head>
   <body>
-    <canvas id="debug" style="position:absolute; left:100px"></canvas>
+    <canvas id="debug" style="position:fixed; left:100px"></canvas>
 
     <div id="info"><a href="http://threejs.org" target="_blank" rel="noopener">three.js</a> - NURBS curve and surface example</div>
 
@@ -80,7 +80,7 @@
         info.style.width = '100%';
         info.style.textAlign = 'center';
         info.innerHTML = '';
-        info.innerHTML = target_rotation;
+        info.innerHTML = window.innerWidth;
         //info.innerHTML = 'Drag to spin';
         container.appendChild( info );
 
