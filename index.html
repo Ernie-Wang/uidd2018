@@ -25,9 +25,11 @@
   <body>
     <!--canvas id="debug" style="position:fixed; left:100px"></canvas-->
 
-    <div id="info"><a href="http://threejs.org" target="_blank" rel="noopener">three.js</a> - NURBS curve and surface example</div>
+    <div id="info"></div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/91/three.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/91/three.js"></script>    
+    <script src="Projector.js"></script>
+
     <!--
     <script src="NURBSCurve.js"></script>
     <script src="NURBSSurface.js"></script>
@@ -43,8 +45,8 @@
       var group;
       var target_rotation = 0;
       var target_rotation_on_mouse_down = 0;
-      var mouse_x = 0;
-      var mouse_x_on_mouse_down = 0;
+      var mouse_mouse_up = { x: 0, y: 0};
+      var mouse_mouse_down = { x: 0, y: 0};
       var windowHalfX = window.innerWidth / 2;
       var windowHalfY = window.innerHeight / 2;
       var day_of_month = 30;
@@ -58,6 +60,11 @@
       var camera_dis_slope = -0.02247;
       var camera_dis_shifting = 49;
 
+      var ray_target_list = [];
+      var projector ;
+      var ray;
+      var intersects;
+
       //------main execute function
 
 
@@ -67,10 +74,15 @@
         init(font);
         animate();
       } );
+      
 
 
-
+/*
+      init();
+      animate();
+*/
       function init(font) {
+      //function init() {
 
         container = document.createElement( 'div' );
         document.body.appendChild( container );
@@ -124,10 +136,8 @@
 
 
         for ( var i = 0; i < day_of_month; i ++ ) {
-          var cube_geometry = new THREE.CubeGeometry( 3, 10, 0.3 );
-          var cube_material = new THREE.MeshLambertMaterial( { color:0x444444, opacity: 0.95, transparent: true} );//0.95
-        
-          var text_material = new THREE.MeshLambertMaterial( { color:0xff8800, opacity: 1, transparent: true} );//0.95
+          
+                    var text_material = new THREE.MeshLambertMaterial( { color:0xff8800, opacity: 1, transparent: true} );//0.95
 
           // set numbers
           var text_geometry = new THREE.TextGeometry( i+1 , {
@@ -147,14 +157,24 @@
 
 
 
-
-
-
           // set stele
+          var cube_geometry = new THREE.CubeGeometry( 3, 10, 0.3 );
+          var cube_material = new THREE.MeshLambertMaterial( { color:0x444444, opacity: 0.95, transparent: true} );//0.95
           stele[i] = new THREE.Mesh( cube_geometry, cube_material );
           stele[i].scale.multiplyScalar( 1 );
           stele[i].castShadow = true;
           stele[i].receiveShadow = true;
+
+
+
+
+
+          ray_target_list.push( stele[i] );
+
+
+
+
+
 /*
           var Test = function () {
             this.click = function() {
@@ -199,23 +219,9 @@
 
 
 
-
-
-
-
-
-
-
-
-
           //stele[i].addEventListener( 'click', selectStele, false );
 
-
-
-
 */
-
-
 
 
 
@@ -229,20 +235,6 @@
           
           //object[i].addEventListener( 'click', function() {selectStele(i);}, false );
           //stele[i].material.color.set("blue");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -273,7 +265,6 @@
 
 
         // set the center Month word
-
         var text_material = new THREE.MeshLambertMaterial( { color:0x227700, opacity: 1, transparent: true} );
         for (var i = 0; i <12; i++) {
           var text;
@@ -340,13 +331,14 @@
 
         month[2].rotation.x = -Math.PI /9 ;
         scene.add( month[2] );
+       
 
         var spot_light = new THREE.SpotLight(0xffffff, 7);
         spot_light.distance = 15;
         spot_light.position.set( 1+month_center.x, -1, 5);
         spot_light.target = month[2];
         scene.add( spot_light );
-
+         
         renderer = new THREE.WebGLRenderer( { antialias: true } );
         renderer.setPixelRatio( window.devicePixelRatio );
         renderer.setSize( window.innerWidth, window.innerHeight );
@@ -355,6 +347,11 @@
         renderer.shadowMapSoft = false;
         container.appendChild( renderer.domElement );
         stats = new Stats();
+
+        projector = new THREE.Projector();
+
+
+
         //container.appendChild( stats.dom );
         document.addEventListener( 'mousedown', onDocumentMouseDown, false );
         document.addEventListener( 'touchstart', onDocumentTouchStart, false );
@@ -382,12 +379,16 @@
         document.addEventListener( 'mousemove', onDocumentMouseMove, false );
         document.addEventListener( 'mouseup', onDocumentMouseUp, false );
         document.addEventListener( 'mouseout', onDocumentMouseOut, false );
-        mouse_x_on_mouse_down = event.clientX - windowHalfX;
+        mouse_mouse_down.x = event.clientX - windowHalfX;
+        mouse_mouse_down.y = -event.clientY + windowHalfY;
         target_rotation_on_mouse_down = target_rotation;
+        hitObject();
       }
       function onDocumentMouseMove( event ) {
-        mouse_x = event.clientX - windowHalfX;
-        target_rotation = target_rotation_on_mouse_down + ( mouse_x - mouse_x_on_mouse_down ) * 0.008;
+        mouse_mouse_up.x = event.clientX - windowHalfX;
+        mouse_mouse_up.y = -event.clientY + windowHalfY;
+        target_rotation = target_rotation_on_mouse_down + ( mouse_mouse_up.x - mouse_mouse_down.x ) * 0.008;
+        
       }
       function onDocumentMouseUp( event ) {
         document.removeEventListener( 'mousemove', onDocumentMouseMove, false );
@@ -401,9 +402,10 @@
       }
       function onDocumentTouchStart( event ) {
           target_rotation = group.rotation.y;
+          hitObject();
         if ( event.touches.length == 1 ) {
           event.preventDefault();
-          mouse_x_on_mouse_down = event.touches[ 0 ].pageX - windowHalfX;
+          mouse_mouse_down.x = event.touches[ 0 ].pageX - windowHalfX;
           target_rotation_on_mouse_down = target_rotation;
         }
         else
@@ -412,9 +414,10 @@
       function onDocumentTouchMove( event ) {
         if ( event.touches.length == 1 ) {
           event.preventDefault();
-          mouse_x = event.touches[ 0 ].pageX - windowHalfX;
-          target_rotation = target_rotation_on_mouse_down + ( mouse_x - mouse_x_on_mouse_down ) * 0.07;
+          mouse_mouse_up.x = event.touches[ 0 ].pageX - windowHalfX;
+          target_rotation = target_rotation_on_mouse_down + ( mouse_mouse_up.x - mouse_mouse_down.x ) * 0.07;
         }
+
       }
       function normalizeGroupTargetRotation() {
         var tmp = Math.PI*2/day_of_month;
@@ -429,6 +432,52 @@
         this.material.color = 0x227700;
         
       }
+
+      function toString(v) { return "[ " + v.x + ", " + v.y + ", " + v.z + " ]"; }
+
+
+      function hitObject() {
+        var vector = new THREE.Vector3( mouse_mouse_down.x/windowHalfX, mouse_mouse_down.y/windowHalfY, 0 );
+        var dir_vector = new THREE.Vector3( 0, -3, -4);
+        vector.unproject( camera );;
+        ray = new THREE.Raycaster( camera.position, vector.sub( camera.position ).normalize() );
+
+        // create an array containing all objects in the scene with which the ray intersects
+        intersects = ray.intersectObjects( ray_target_list );
+  
+        // if there is one (or more) intersections
+        if ( intersects.length > 0 ) {
+          console.log("Hit @ " + toString( intersects[0].point ) );
+          // change the color of the closest face.
+          //intersects[ 0 ].face.color.setRGB( 0.8 * Math.random() + 0.2, 0, 0 ); 
+          var tmp = Math.PI*2/day_of_month;
+
+          var cycles = parseInt( target_rotation / ( Math.PI*2 ) );
+          target_rotation = ( intersects[ 0 ].object.material.id + cycles*day_of_month ) * tmp;
+          intersects[ 0 ].object.material.color.set(0x227700);
+        }
+      }
+
+
+
+
+      /*
+      var vector = new THREE.Vector3( mouse.x, mouse.y, 1 );
+  projector.unprojectVector( vector, camera );
+  var ray = new THREE.Raycaster( camera.position, vector.sub( camera.position ).normalize() );
+
+  // create an array containing all objects in the scene with which the ray intersects
+  var intersects = ray.intersectObjects( targetList );
+  
+  // if there is one (or more) intersections
+  if ( intersects.length > 0 )
+  {
+    console.log("Hit @ " + toString( intersects[0].point ) );
+    // change the color of the closest face.
+    intersects[ 0 ].face.color.setRGB( 0.8 * Math.random() + 0.2, 0, 0 ); 
+    intersects[ 0 ].object.geometry.colorsNeedUpdate = true;
+  }*/
+
 
 
 
@@ -459,6 +508,8 @@
       }
 
       function render() { //3D rotation function
+        //hitObject();
+
         normalizeGroupTargetRotation();
         group.rotation.y += ( target_rotation - group.rotation.y ) * 0.008;
         info.innerHTML = target_rotation;
