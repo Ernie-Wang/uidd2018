@@ -150,9 +150,9 @@
 
           object[i].position.set( Math.cos(Math.PI * (2*i/day_of_month + 0.5) )*radius, 0, Math.sin(Math.PI * (2*i/day_of_month + 0.5) )*radius);
           object[i].rotation.y = Math.PI * (-2*i/day_of_month - 0.5 );
-          object[i].addEventListener( 'click', selectStele, false );
+          stele[i].addEventListener( 'click', selectStele, false );
           //object[i].addEventListener( 'click', function() {selectStele(i);}, false );
-
+          //stele[i].material.color.set("blue");
           group.add( object[i] );          
         }
 
@@ -345,8 +345,8 @@
 
 
       //if the stele is selected, the hole group rotated to the front and grow bigger
-      function selectStele( i, event) {
-        this.background-color = "orange";
+      function selectStele( event ) {
+        this.material.color = 0x227700;
         
       }
 
