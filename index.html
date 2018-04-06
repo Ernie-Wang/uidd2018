@@ -63,7 +63,8 @@
       var ray_target_list = [];
       var projector ;
       var ray;
-      var intersects;
+      //var intersects;
+      var cycles;
 
       //------main execute function
 
@@ -164,65 +165,13 @@
           stele[i].scale.multiplyScalar( 1 );
           stele[i].castShadow = true;
           stele[i].receiveShadow = true;
+          stele[i].name = i;
 
 
 
 
 
           ray_target_list.push( stele[i] );
-
-
-
-
-
-/*
-          var Test = function () {
-            this.click = function() {
-              this.dispatchEvent( { type: 'click', message: 'vroom vroom!' } );
-            }
-          };
-          var EventDispatcher= new THREE.EventDispatcher();
-          Object.assign( Test.prototype );
-          
-          var test = new Test();
-          test.addEventListener( 'click', function( event ){alert(event.message);} );
-
-          test.click();
-
-
-
-          var Car = function () {
-
-            this.click = function () {
-
-              this.dispatchEvent( { type: 'click', message: 'vroom vroom!' } );
-
-            };
-
-          };
-
-          // Mixing the EventDispatcher.prototype with the custom object prototype
-
-          Object.assign( Car.prototype );
-
-          // Using events with the custom object
-
-          var car = new Car();
-
-          car.addEventListener( 'click', function ( event ) {
-
-            alert( event.message );
-
-          } );
-
-          car.click();
-
-
-
-          //stele[i].addEventListener( 'click', selectStele, false );
-
-*/
-
 
 
           // set object
@@ -443,7 +392,7 @@
         ray = new THREE.Raycaster( camera.position, vector.sub( camera.position ).normalize() );
 
         // create an array containing all objects in the scene with which the ray intersects
-        intersects = ray.intersectObjects( ray_target_list );
+        var intersects = ray.intersectObjects( ray_target_list );
   
         // if there is one (or more) intersections
         if ( intersects.length > 0 ) {
@@ -452,9 +401,9 @@
           //intersects[ 0 ].face.color.setRGB( 0.8 * Math.random() + 0.2, 0, 0 ); 
           var tmp = Math.PI*2/day_of_month;
 
-          var cycles = parseInt( target_rotation / ( Math.PI*2 ) );
-          target_rotation = ( intersects[ 0 ].object.material.id + cycles*day_of_month ) * tmp;
-          intersects[ 0 ].object.material.color.set(0x227700);
+          cycles = parseInt( target_rotation / ( Math.PI*2 ) );
+          target_rotation = ( intersects[ 0 ].object.name + cycles*day_of_month ) * tmp;
+          //intersects[ 0 ].object.material.color.set(0x227700);    //for debug
         }
       }
 
