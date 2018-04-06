@@ -155,19 +155,22 @@
           stele[i].scale.multiplyScalar( 1 );
           stele[i].castShadow = true;
           stele[i].receiveShadow = true;
-
-          stele[i].click = function () {
-            this.dispatchEvent( { type: 'click', message: 'vroom vroom!' } );
-
-          };
-          Object.assign( stele[i].click.prototype, EventDispatcher.prototype );
-
-          stele[i].addEventListener( 'click', selectStele, false );
-
-          stele[i].click();
-
-
 /*
+          var Test = function () {
+            this.click = function() {
+              this.dispatchEvent( { type: 'click', message: 'vroom vroom!' } );
+            }
+          };
+          var EventDispatcher= new THREE.EventDispatcher();
+          Object.assign( Test.prototype );
+          
+          var test = new Test();
+          test.addEventListener( 'click', function( event ){alert(event.message);} );
+
+          test.click();
+
+
+
           var Car = function () {
 
             this.click = function () {
@@ -180,7 +183,7 @@
 
           // Mixing the EventDispatcher.prototype with the custom object prototype
 
-          Object.assign( Car.prototype, EventDispatcher.prototype );
+          Object.assign( Car.prototype );
 
           // Using events with the custom object
 
@@ -196,21 +199,21 @@
 
 
 
+
+
+
+
+
+
+
+
+
+          //stele[i].addEventListener( 'click', selectStele, false );
+
+
+
+
 */
-
-
-
-
-
-
-
-
-          stele[i].addEventListener( 'click', selectStele, false );
-
-
-
-
-
 
 
 
