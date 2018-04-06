@@ -256,17 +256,12 @@
           });
           month[i] = new THREE.Mesh( month_geometry, text_material);
 
-          
-
           month[i].castShadow = true;
           //month[i].scale.multiplyScalar( 1.5 );
 
 
         }
 
-
-
-        
         var month_center = new THREE.Vector3();
         var month_geometry = month[2].geometry;
         month_geometry.computeBoundingBox();
@@ -299,8 +294,6 @@
 
         projector = new THREE.Projector();
 
-
-
         //container.appendChild( stats.dom );
         document.addEventListener( 'mousedown', onDocumentMouseDown, false );
         document.addEventListener( 'touchstart', onDocumentTouchStart, false );
@@ -308,11 +301,6 @@
         //
         window.addEventListener( 'resize', onWindowResize, false );
       }
-
-
-
-
-
 
       function onWindowResize() {
         windowHalfX = window.innerWidth / 2;
@@ -373,17 +361,7 @@
         target_rotation = Math.round( target_rotation / tmp ) * tmp ; 
       }
 
-
-
-
-      //if the stele is selected, the hole group rotated to the front and grow bigger
-      function selectStele( event ) {
-        this.material.color = 0x227700;
-        
-      }
-
       function toString(v) { return "[ " + v.x + ", " + v.y + ", " + v.z + " ]"; }
-
 
       function hitObject() {
         var vector = new THREE.Vector3( mouse_mouse_down.x/windowHalfX, mouse_mouse_down.y/windowHalfY, 0 );
@@ -461,7 +439,7 @@
 
         normalizeGroupTargetRotation();
         group.rotation.y += ( target_rotation - group.rotation.y ) * 0.008;
-        info.innerHTML = target_rotation;
+        info.innerHTML = group.rotation.y;
         renderer.render( scene, camera );
       }
     </script>
