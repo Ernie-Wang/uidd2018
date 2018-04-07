@@ -391,6 +391,24 @@
 
       function zoomInStele() {
 
+        if (group.rotation.y < 0) {
+
+        }
+        else {
+          var extra_angle = group.rotation.y%(Math.PI *2);
+          var double_front_stele = parseInt( extra_angle / (angle_unit*0.5) );
+          var angle_from_center = extra_angle % (angle_unit*0.5);
+          if (double_front_stele%2 == 1) { 
+            double_front_stele++;
+            angle_from_center = 1 - angle_from_center;
+          }
+          var front_stele = double_front_stele * 0.5;
+          var zoom_ratio = angle_from_center / (angle_unit*0.5);
+          //object[front_stele].scale.set( 1.8 - 0.8*zoom_ratio, 1.8 - 0.8*zoom_ratio, 1.8 - 0.8*zoom_ratio );
+        }
+
+
+        /*
         var extra_angle = group.rotation.y%(Math.PI *2);
         var front_stele = parseInt( extra_angle / angle_unit );
         var tmp =  extra_angle % angle_unit ;
@@ -420,7 +438,10 @@
             if (front_stele<0)
               front_stele = 29;
           }
-        }
+        }*/
+
+
+
         object[front_stele].scale.set( 1.8 - 0.8*zoom_ratio, 1.8 - 0.8*zoom_ratio, 1.8 - 0.8*zoom_ratio );
       }
 
