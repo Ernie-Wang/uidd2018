@@ -95,7 +95,7 @@
         document.body.appendChild( container );
         var info = document.createElement( 'div' );
         info.style.position = 'absolute';
-        info.style.top = '4vh';
+        info.style.top = '10vh';
         info.style.width = '100%';
         info.style.textAlign = 'center';
         info.innerHTML = 'Select any stele, and it will turn to you';
@@ -309,6 +309,8 @@
 
       function onWindowResize() {
         windowHalfX = window.innerWidth / 2;
+          var zoom_ratio = angle_from_center / (angle_unit*0.5);
+          //object[front_stele].scale.set( 1.8 - 0.8*zoom_ratio, 1.8 - 0.8*zoom_ratio, 1.8 - 0.8*zoom_ratio );
         windowHalfY = window.innerHeight / 2;
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
@@ -453,7 +455,7 @@
 
 
 
-        info.innerHTML = '';
+        //info.innerHTML = '';
         renderer.render( scene, camera );
       }
     </script>
