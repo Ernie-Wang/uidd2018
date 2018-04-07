@@ -25,7 +25,7 @@
   <body>
     <!--canvas id="debug" style="position:fixed; left:100px"></canvas-->
 
-    <div id="info"></div>
+    <div id="info">Drag to Spin !!  Tap anywhere to stop</div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/91/three.js"></script>    
     <script src="Projector.js"></script>
@@ -95,13 +95,12 @@
         document.body.appendChild( container );
         var info = document.createElement( 'div' );
         info.style.position = 'absolute';
-        info.style.top = '30px';
+        info.style.top = '4vh';
         info.style.width = '100%';
         info.style.textAlign = 'center';
-        info.innerHTML = '';
-        info.innerHTML = window.innerWidth;
+        info.innerHTML = 'Select any stele, and it will turn to you';
         //info.innerHTML = 'Drag to spin';
-        //container.appendChild( info );
+        container.appendChild( info );
 
         camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, 2000 );
         var shorter = window.innerWidth;
