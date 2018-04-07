@@ -394,6 +394,12 @@
         var extra_angle = group.rotation.y%(Math.PI *2);
         //var front_stele = parseInt( extra_angle / angle_unit );
         var tmp =  extra_angle % angle_unit ;
+        if (tmp < 0) 
+          tmp *= -1;
+
+
+
+        
         var zoom_ratio ;
         if (tmp > (angle_unit*0.5) ) 
           zoom_ratio = 1-tmp/(angle_unit*0.5);
