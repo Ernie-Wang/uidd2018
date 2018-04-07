@@ -68,6 +68,7 @@
 
 
       var front_stele;
+      var last_front_stele;
 
       //------main execute function
 
@@ -88,6 +89,7 @@
       function init(font) {
         //function init() {
         front_stele = 0;
+        last_front_stele = 0;
 
         container = document.createElement( 'div' );
         document.body.appendChild( container );
@@ -390,76 +392,36 @@
       }
 
       function zoomInStele() {
-
+        var tmp = Math.PI*2;
+        var extra_angle;
         if (group.rotation.y < 0) {
-          //group.rotation.y *= -1;
-          var tmp = Math.PI*2;
-          var extra_angle = tmp + group.rotation.y%tmp;
+          extra_angle = tmp + group.rotation.y%tmp;
 
-          var double_front_stele = parseInt( extra_angle / (angle_unit*0.5) );
-          tmp = angle_unit * 0.5
-          var angle_from_center = extra_angle % tmp;
-          if (double_front_stele%2 == 1) { 
-            double_front_stele++;
-            if (double_front_stele == 60)
-              double_front_stele = 0;
-            angle_from_center = tmp - angle_from_center;
-          }
-          var front_stele = double_front_stele * 0.5;
-          var zoom_ratio = angle_from_center / (angle_unit*0.5);
           //object[front_stele].scale.set( 1.8 - 0.8*zoom_ratio, 1.8 - 0.8*zoom_ratio, 1.8 - 0.8*zoom_ratio );
         }
         else {
-          var tmp = Math.PI*2;
-          var extra_angle = group.rotation.y%tmp;
-          var double_front_stele = parseInt( extra_angle / (angle_unit*0.5) );
-          tmp = angle_unit * 0.5
-          var angle_from_center = extra_angle % tmp;
-          if (double_front_stele%2 == 1) { 
-            double_front_stele++;
-            angle_from_center = tmp - angle_from_center;
-          }
-          var front_stele = double_front_stele * 0.5;
-          var zoom_ratio = angle_from_center / (angle_unit*0.5);
+          extra_angle = group.rotation.y%tmp;
+
           //object[front_stele].scale.set( 1.8 - 0.8*zoom_ratio, 1.8 - 0.8*zoom_ratio, 1.8 - 0.8*zoom_ratio );
         }
 
+        var double_front_stele = parseInt( extra_angle / (angle_unit*0.5) );
+        tmp = angle_unit * 0.5
+        var angle_from_center = extra_angle % tmp;
+        if (double_front_stele%2 == 1) { 
+          double_front_stele++;
+          if (double_front_stele == 60)
+            double_front_stele = 0;
+          angle_from_center = tmp - angle_from_center;
+        }
+        var front_stele = double_front_stele * 0.5;
+        var zoom_ratio = angle_from_center / (angle_unit*0.5);
 
-        /*
-        var extra_angle = group.rotation.y%(Math.PI *2);
-        var front_stele = parseInt( extra_angle / angle_unit );
-        var tmp =  extra_angle % angle_unit ;
-        if (tmp < 0) 
-          tmp *= -1;
-
-
-
-        
-        var zoom_ratio ;
-        if (tmp > (angle_unit*0.5) ) 
-          zoom_ratio = 1-tmp/(angle_unit*0.5);
-        else 
-          zoom_ratio = tmp / (angle_unit*0.5);
-        if (zoom_ratio < 0) 
-          zoom_ratio *= -1;
-        
-        if (zoom_ratio >= 1) {
-          if (group.rotation.y < target_rotation) {
-            object[front_stele].scale.set( 1, 1, 1 );
-            front_stele++;
-            if ( front_stele > 29 ) 
-              front_stele = 0;
-          }
-          else {
-            front_stele--;
-            if (front_stele<0)
-              front_stele = 29;
-          }
-        }*/
-
+        object[last_front_stele].scale.set( 1, 1, 1 );
 
 
         object[front_stele].scale.set( 1.8 - 0.8*zoom_ratio, 1.8 - 0.8*zoom_ratio, 1.8 - 0.8*zoom_ratio );
+        last_front_stele = front_stele;
       }
 
 
