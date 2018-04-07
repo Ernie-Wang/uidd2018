@@ -392,7 +392,7 @@
       function zoomInStele() {
 
         var extra_angle = group.rotation.y%(Math.PI *2);
-        //var front_stele = parseInt( extra_angle / angle_unit );
+        var front_stele = parseInt( extra_angle / angle_unit );
         var tmp =  extra_angle % angle_unit ;
         if (tmp < 0) 
           tmp *= -1;
@@ -407,8 +407,10 @@
           zoom_ratio = tmp / (angle_unit*0.5);
         if (zoom_ratio < 0) 
           zoom_ratio *= -1;
-        if (zoom_ratio >= 0.95) {
+        
+        if (zoom_ratio >= 1) {
           if (group.rotation.y < target_rotation) {
+            object[front_stele].scale.set( 1, 1, 1 );
             front_stele++;
             if ( front_stele > 29 ) 
               front_stele = 0;
